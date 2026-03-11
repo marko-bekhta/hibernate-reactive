@@ -15,7 +15,7 @@ permissions:
 jobs:
   publish-build-scans:
     name: Publish Sonar scan
-    if: github.repository == 'hibernate/hibernate-reactive' && github.event.workflow_run.conclusion != 'cancelled'
+    if: github.repository == 'marko-bekhta/hibernate-reactive' && github.event.workflow_run.conclusion != 'cancelled'
     runs-on: ubuntu-latest
     steps:
       - name: Determine the Branch Reference for which the original action was triggered
@@ -94,7 +94,7 @@ jobs:
           export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION
           curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION.zip
           DOWNLOADED_HASH=$(sha256sum $HOME/.sonar/sonar-scanner.zip | awk '{print $1}')
-          if [ "$DOWNLOADED_HASH" == "$EXPECTED_HASH" ]; then
+          if [ "$DOWNLOADED_HASH" == "$SONAR_HASH" ]; then
             echo "Successfully verified the file checksum"
           else
             echo "Error: Failed the file checksum verification. Expected: $SONAR_HASH but got $DOWNLOADED_HASH instead"
